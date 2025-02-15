@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if 'username' in session %}{{ session['username'] }}'s{% endif %} Todo App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background-color: #00796b;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar a, .navbar span {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .header-title {
+            text-align: center;
+            color: #333;
+        }
+        .ui.divided.items .item {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .ui.buttons .ui.button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ui menu navbar">
+        <div class="left menu">
+            {% if 'user_id' in session %}
+                <a class="item" href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <div class="right menu">
+            {% if 'user_id' in session %}
+                <span class="item">Welcome, {{ session['username'] }}</span>
+            {% else %}
+                <a class="item" href="{{ url_for('login') }}">Login</a>
+                <a class="item" href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="ui container">
+        <h1 class="ui header header-title">{% if 'username' in session %}{{ session['username'] }}'s{% endif %} To-Do List</h1>
+
+        <form class="ui form" action="/add" method="post">
+            <div class="field">
+                <label>Todo Title</label>
+                <input type="text" name="title" placeholder="Enter Todo...">
+                <button class="ui blue button" type="submit">Add</button>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="ui divided items">
+            {% for todo in todo_list %}
+            <div class="item">
+                <div class="content">
+                    <p class="header">{{ todo.id }} | {{ todo.title }}</p>
+                    <div class="extra">
+                        {% if todo.complete == False %}
+                        <span class="ui gray label">Not Complete</span>
+                        {% else %}
+                        <span class="ui green label">Completed</span>
+                        {% endif %}
+
+                        <div class="ui buttons">
+                            <a class="ui green button" href="/update/{{ todo.id }}">Toggle Complete</a>
+                            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
