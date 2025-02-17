@@ -14,11 +14,11 @@
         .navbar {
             background-color: #00796b;
             color: #fff;
-            padding: 20px 30px; /* Increased padding */
+            padding: 20px 30px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 1.5rem; /* Larger font size */
+            font-size: 1.5rem; 
         }
         .navbar a, .navbar span {
             color: #fff;
@@ -41,9 +41,9 @@
         }
         .welcome-title {
             text-align: center;
-            font-size: 2.5rem; /* Larger font for welcome */
+            font-size: 2.5rem; 
             color: #00796b;
-            margin-bottom: 30px; /* Space between welcome and todo list */
+            margin-bottom: 30px; 
         }
         .ui.divided.items .item {
             background-color: #fafafa;
@@ -75,7 +75,7 @@
     </div>
 
     <div class="ui container">
-        <!-- Added the welcome message here -->
+        
         <h2 class="welcome-title">Welcome {% if 'username' in session %}{{ session['username'] }}{% endif %} </h2>
 
         <h1 class="ui header header-title">{% if 'username' in session %}{{ session['username'] }}'s{% endif %}  To-Do List</h1>
