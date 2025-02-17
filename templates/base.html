@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +14,11 @@
         .navbar {
             background-color: #00796b;
             color: #fff;
-            padding: 10px;
+            padding: 20px 30px; /* Increased padding */
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 1.5rem; /* Larger font size */
         }
         .navbar a, .navbar span {
             color: #fff;
@@ -39,6 +39,12 @@
             text-align: center;
             color: #333;
         }
+        .welcome-title {
+            text-align: center;
+            font-size: 2.5rem; /* Larger font for welcome */
+            color: #00796b;
+            margin-bottom: 30px; /* Space between welcome and todo list */
+        }
         .ui.divided.items .item {
             background-color: #fafafa;
             padding: 20px;
@@ -55,25 +61,28 @@
     <div class="ui menu navbar">
         <div class="left menu">
             {% if 'user_id' in session %}
-                <a class="item" href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
-        </div>
-        <div class="right menu">
-            {% if 'user_id' in session %}
                 <span class="item">Welcome, {{ session['username'] }}</span>
             {% else %}
                 <a class="item" href="{{ url_for('login') }}">Login</a>
                 <a class="item" href="{{ url_for('register') }}">Register</a>
             {% endif %}
         </div>
+        <div class="right menu">
+            {% if 'user_id' in session %}
+                <a class="item" href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
     </div>
 
     <div class="ui container">
-        <h1 class="ui header header-title">{% if 'username' in session %}{{ session['username'] }}'s{% endif %} To-Do List</h1>
+        <!-- Added the welcome message here -->
+        <h2 class="welcome-title">Welcome {% if 'username' in session %}{{ session['username'] }}{% endif %} </h2>
+
+        <h1 class="ui header header-title">{% if 'username' in session %}{{ session['username'] }}'s{% endif %}  To-Do List</h1>
 
         <form class="ui form" action="/add" method="post">
             <div class="field">
-                <label>Todo Title</label>
+                <label>DO DESCRIPTION</label>
                 <input type="text" name="title" placeholder="Enter Todo...">
                 <button class="ui blue button" type="submit">Add</button>
             </div>
